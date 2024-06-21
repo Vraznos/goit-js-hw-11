@@ -32,3 +32,9 @@ export function displayImages(images) {
     });
   }
 }
+export function clearImages() {
+  const gallery = document.getElementById('gallery');
+  while (gallery.firstChild) {
+    gallery.removeChild(gallery.firstChild);
+  }
+}

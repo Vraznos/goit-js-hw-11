@@ -1,7 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { searchImages } from './js/pixabay-api';
-import { displayImages } from './js/render-functions';
+import { displayImages, clearImages } from './js/render-functions';
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('search-form');
@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const query = searchInput.value.trim();
 
+    clearImages();
+
     if (query === '') {
       iziToast.error({
         title: 'Error',
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    loader.style.display = 'block'; // Показуємо індикатор завантаження
+    loader.style.display = 'block';
 
     try {
       const images = await searchImages(query);
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         message: 'Failed to fetch images. Please try again later.',
       });
     } finally {
-      loader.style.display = 'none'; // Приховуємо індикатор завантаження
+      loader.style.display = 'none';
     }
   });
 });
